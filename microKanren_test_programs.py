@@ -1,7 +1,7 @@
 from microKanren import *
 
 def take(n, stream):
-    if n == 0: return ()
+    if n == 0: return MZERO
     else: return cons(car(stream), take(n-1, cdr(stream)))
 
 a_and_b = conj(

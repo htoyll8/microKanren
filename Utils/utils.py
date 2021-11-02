@@ -1,7 +1,7 @@
 from collections import namedtuple
 from variable import Variable
 
-MZERO = ()
+MZERO = []
 
 State = namedtuple('State', ['alist', 'counter'])
 
@@ -23,7 +23,11 @@ def is_null(x):
 def is_var(v):
     return isinstance(v, Variable)
 
+def var_equals(x, y):
+    return is_var(x) and is_var(y) and x.index is y.index
+
 def ext_s(x, v, s):
-    s = s.copy()
-    s[x] = v
-    return s
+    return [(x, v)] + s
+
+def assp(pred, ls):
+    for (x,y) in ls: return (x,y) if pred(x) else False

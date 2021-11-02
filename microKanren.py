@@ -1,8 +1,8 @@
 from Utils.utils import *
 
 def walk(u, s):
-    pr = is_var(u) and s.has_key(u)
-    return walk(s.get(u), s) if pr else u
+    pr = is_var(u) and assp(lambda v: var_equals(u, v), s)
+    return walk(assp(s, u), s) if pr else u
 
 def eq(u, v):
     def _equals(sc):
@@ -15,7 +15,7 @@ def unify(u, v, s):
     u = walk(u, s)
     v = walk(v, s)
 
-    if is_var(u) and is_var(v) and u == v:
+    if var_equals(u, v):
         return s
     elif is_var(u):
         return ext_s(u, v, s)
